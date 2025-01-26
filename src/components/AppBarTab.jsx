@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
+import { Link } from "react-router-native";
 import Text from "./Text";
 
 const styles = StyleSheet.create({
@@ -8,15 +9,15 @@ const styles = StyleSheet.create({
 });
 
 const AppBarTab = ({ text }) => {
+  const destination = text === "Repositories" ? "/" : "/signin";
   return (
-    <Text
-      color="appBarHeading"
-      fontWeight="bold"
-      fontSize="heading"
-      style={styles.container}
-    >
-      {text}
-    </Text>
+    <Pressable style={styles.container}>
+      <Link to={destination}>
+        <Text color="appBarHeading" fontWeight="bold" fontSize="heading">
+          {text}
+        </Text>
+      </Link>
+    </Pressable>
   );
 };
 

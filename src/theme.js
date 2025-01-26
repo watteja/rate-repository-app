@@ -5,7 +5,7 @@ const theme = {
     primary: "#0366d6",
     appBarBackground: "#24292e",
     appBarHeading: "white",
-    listBackground: "#e1e4e8",
+    mainBackground: "#e1e4e8",
     listItemBackground: "white",
   },
   fontSizes: {
