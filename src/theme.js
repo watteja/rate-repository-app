@@ -7,6 +7,7 @@ const theme = {
     appBarHeading: "white",
     mainBackground: "#e1e4e8",
     listItemBackground: "white",
+    error: "#d73a4a",
   },
   fontSizes: {
     body: 14,
