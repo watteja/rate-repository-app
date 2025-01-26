@@ -12,7 +12,7 @@ const AppBarTab = ({ text }) => {
     <Text
       color="appBarHeading"
       fontWeight="bold"
-      fontSize="subheading"
+      fontSize="heading"
       style={styles.container}
     >
       {text}
