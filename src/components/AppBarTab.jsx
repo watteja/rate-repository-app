@@ -13,7 +13,7 @@ const AppBarTab = ({ text }) => {
   return (
     <Pressable style={styles.container}>
       <Link to={destination}>
-        <Text color="appBarHeading" fontWeight="bold" fontSize="heading">
+        <Text color="appBarHeading" fontWeight="bold" fontSize="subheading">
           {text}
         </Text>
       </Link>
