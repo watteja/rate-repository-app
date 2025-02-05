@@ -11,10 +11,7 @@ const useRepositories = () => {
 
   useEffect(() => {
     if (data) {
-      console.log("fetched repository data", data);
       setRepositories(data.repositories);
-    } else {
-      console.log("no repository data fetched");
     }
   }, [data]);
 
