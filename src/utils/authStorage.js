@@ -6,18 +6,18 @@ class AuthStorage {
   }
 
   // Get the access token from the storage
-  getAccessToken() {
-    return AsyncStorage.getItem(`${this.namespace}:accessToken`);
+  async getAccessToken() {
+    return await AsyncStorage.getItem(`${this.namespace}:accessToken`);
   }
 
   // Add the access token to the storage
-  setAccessToken(accessToken) {
-    AsyncStorage.setItem(`${this.namespace}:accessToken`, accessToken);
+  async setAccessToken(accessToken) {
+    await AsyncStorage.setItem(`${this.namespace}:accessToken`, accessToken);
   }
 
   // Remove the access token from the storage
-  removeAccessToken() {
-    AsyncStorage.removeItem(`${this.namespace}:accessToken`);
+  async removeAccessToken() {
+    await AsyncStorage.removeItem(`${this.namespace}:accessToken`);
   }
 }
 
