@@ -10,12 +10,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const RepositoryItem = ({ repository, singleRepoView = false }) => {
+const RepositoryItem = ({ repository, singleRepository = false }) => {
   return (
     <View testID="repositoryItem" style={styles.container}>
       <RepositoryHeader repository={repository} />
       <RepositoryStats repository={repository} />
-      {singleRepoView && <RepositoryButton repository={repository} />}
+      {singleRepository && <RepositoryButton repository={repository} />}
     </View>
   );
 };
