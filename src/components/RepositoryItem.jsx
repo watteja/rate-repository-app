@@ -1,4 +1,5 @@
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Pressable } from "react-native";
+import { openURL } from "expo-linking";
 import Text from "./Text";
 import theme from "../theme";
 
@@ -9,11 +10,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const RepositoryItem = ({ repository }) => {
+const RepositoryItem = ({ repository, singleRepoView = false }) => {
   return (
     <View testID="repositoryItem" style={styles.container}>
       <RepositoryHeader repository={repository} />
       <RepositoryStats repository={repository} />
+      {singleRepoView && <RepositoryButton repository={repository} />}
     </View>
   );
 };
@@ -106,6 +108,31 @@ const StatItem = ({ value, label }) => {
       </Text>
       <Text color="textSecondary">{label}</Text>
     </View>
+  );
+};
+
+const buttonStyles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.primary,
+    padding: 10,
+    borderRadius: 5,
+    display: "flex",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  text: {
+    color: "white",
+  },
+});
+
+const RepositoryButton = ({ repository }) => {
+  return (
+    <Pressable
+      style={buttonStyles.container}
+      onPress={() => openURL(repository.url)}
+    >
+      <Text style={buttonStyles.text}>Open in GitHub</Text>
+    </Pressable>
   );
 };
 
