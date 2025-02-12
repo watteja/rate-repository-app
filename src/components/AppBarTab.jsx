@@ -7,7 +7,8 @@ import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 12.5,
   },
 });
 
@@ -15,14 +16,23 @@ const AppBarTab = ({ text }) => {
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
   const navigate = useNavigate();
-  const destination = text === "Sign in" ? "/signin" : "/";
 
   const handleOnPress = async () => {
-    if (text === "Sign out") {
-      await authStorage.removeAccessToken();
-      apolloClient.resetStore();
+    switch (text) {
+      case "Sign out":
+        await authStorage.removeAccessToken();
+        apolloClient.resetStore();
+        navigate("/");
+        break;
+      case "Sign in":
+        navigate("/signin");
+        break;
+      case "Create a review":
+        navigate("/createreview");
+        break;
+      default:
+        navigate("/");
     }
-    navigate(destination);
   };
 
   return (

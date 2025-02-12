@@ -25,6 +25,7 @@ const AppBar = () => {
         <AppBarTab text="Repositories" />
         {data?.me ? (
           <>
+            <AppBarTab text="Create a review" />
             <AppBarTab text="Sign out" />
           </>
         ) : (

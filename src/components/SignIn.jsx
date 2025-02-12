@@ -1,36 +1,11 @@
-import { TextInput, Pressable, View, StyleSheet } from "react-native";
+import { TextInput, Pressable, View } from "react-native";
 import { useNavigate } from "react-router-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
 import useSignIn from "../hooks/useSignIn";
 import Text from "./Text";
-import theme from "../theme";
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
-    justifyContent: "space-between",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: theme.colors.textSecondary,
-    borderRadius: 5,
-    padding: 10,
-  },
-  inputError: {
-    borderColor: theme.colors.error,
-  },
-  button: {
-    backgroundColor: theme.colors.primary,
-    padding: 15,
-    borderRadius: 5,
-    textAlign: "center",
-  },
-});
+import { formStyles } from "../theme";
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -50,14 +25,14 @@ export const SignInForm = ({ onSubmit }) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={formStyles.container}>
       <View>
         <TextInput
           style={[
-            styles.input,
+            formStyles.input,
             formik.touched.username &&
               formik.errors.username &&
-              styles.inputError,
+              formStyles.inputError,
           ]}
           onChangeText={formik.handleChange("username")}
           value={formik.values.username}
@@ -72,10 +47,10 @@ export const SignInForm = ({ onSubmit }) => {
       <View>
         <TextInput
           style={[
-            styles.input,
+            formStyles.input,
             formik.touched.password &&
               formik.errors.password &&
-              styles.inputError,
+              formStyles.inputError,
           ]}
           onChangeText={formik.handleChange("password")}
           value={formik.values.password}
@@ -93,7 +68,7 @@ export const SignInForm = ({ onSubmit }) => {
           color="appBarHeading"
           fontWeight="bold"
           fontSize="subheading"
-          style={styles.button}
+          style={formStyles.button}
         >
           Sign in
         </Text>

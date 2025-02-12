@@ -29,4 +29,29 @@ const theme = {
   },
 };
 
+export const formStyles = {
+  container: {
+    padding: 20,
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+    justifyContent: "space-between",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: theme.colors.textSecondary,
+    borderRadius: 5,
+    padding: 10,
+  },
+  inputError: {
+    borderColor: theme.colors.error,
+  },
+  button: {
+    backgroundColor: theme.colors.primary,
+    padding: 15,
+    borderRadius: 5,
+    textAlign: "center",
+  },
+};
+
 export default theme;
