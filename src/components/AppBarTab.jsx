@@ -27,6 +27,9 @@ const AppBarTab = ({ text }) => {
       case "Sign in":
         navigate("/signin");
         break;
+      case "Sign up":
+        navigate("/signup");
+        break;
       case "Create a review":
         navigate("/createreview");
         break;

@@ -31,6 +31,7 @@ const AppBar = () => {
         ) : (
           <>
             <AppBarTab text="Sign in" />
+            <AppBarTab text="Sign up" />
           </>
         )}
       </ScrollView>

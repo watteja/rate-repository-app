@@ -36,6 +36,7 @@ export const formStyles = {
     flexDirection: "column",
     gap: 10,
     justifyContent: "space-between",
+    backgroundColor: theme.colors.listItemBackground,
   },
   input: {
     borderWidth: 1,
