@@ -33,6 +33,9 @@ const AppBarTab = ({ text }) => {
       case "Create a review":
         navigate("/createreview");
         break;
+      case "My reviews":
+        navigate("/myreviews");
+        break;
       default:
         navigate("/");
     }
