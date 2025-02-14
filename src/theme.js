@@ -52,6 +52,7 @@ export const formStyles = {
     padding: 15,
     borderRadius: 5,
     textAlign: "center",
+    alignItems: "center",
   },
 };
 

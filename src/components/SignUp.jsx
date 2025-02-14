@@ -1,4 +1,4 @@
-import { TextInput, Pressable, View } from "react-native";
+import { TextInput, Pressable, View, StyleSheet } from "react-native";
 import { useNavigate } from "react-router-native";
 import { useMutation } from "@apollo/client";
 import { useFormik } from "formik";
@@ -8,6 +8,8 @@ import { CREATE_USER } from "../graphql/mutations";
 import useSignIn from "../hooks/useSignIn";
 import Text from "./Text";
 import { formStyles } from "../theme";
+
+const styles = StyleSheet.create(formStyles);
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -32,14 +34,14 @@ const SignUpForm = ({ onSubmit }) => {
   });
 
   return (
-    <View style={formStyles.container}>
+    <View style={styles.container}>
       <View>
         <TextInput
           style={[
-            formStyles.input,
+            styles.input,
             formik.touched.username &&
               formik.errors.username &&
-              formStyles.inputError,
+              styles.inputError,
           ]}
           onChangeText={formik.handleChange("username")}
           value={formik.values.username}
@@ -54,10 +56,10 @@ const SignUpForm = ({ onSubmit }) => {
       <View>
         <TextInput
           style={[
-            formStyles.input,
+            styles.input,
             formik.touched.password &&
               formik.errors.password &&
-              formStyles.inputError,
+              styles.inputError,
           ]}
           onChangeText={formik.handleChange("password")}
           value={formik.values.password}
@@ -73,10 +75,10 @@ const SignUpForm = ({ onSubmit }) => {
       <View>
         <TextInput
           style={[
-            formStyles.input,
+            styles.input,
             formik.touched.passwordConfirm &&
               formik.errors.passwordConfirm &&
-              formStyles.inputError,
+              styles.inputError,
           ]}
           onChangeText={formik.handleChange("passwordConfirm")}
           value={formik.values.passwordConfirm}
@@ -94,7 +96,7 @@ const SignUpForm = ({ onSubmit }) => {
           color="appBarHeading"
           fontWeight="bold"
           fontSize="subheading"
-          style={formStyles.button}
+          style={styles.button}
         >
           Sign up
         </Text>

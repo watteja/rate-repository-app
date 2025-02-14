@@ -1,4 +1,4 @@
-import { TextInput, Pressable, View } from "react-native";
+import { TextInput, Pressable, View, StyleSheet } from "react-native";
 import { useNavigate } from "react-router-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -6,6 +6,8 @@ import * as yup from "yup";
 import useSignIn from "../hooks/useSignIn";
 import Text from "./Text";
 import { formStyles } from "../theme";
+
+const styles = StyleSheet.create(formStyles);
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -25,14 +27,14 @@ export const SignInForm = ({ onSubmit }) => {
   });
 
   return (
-    <View style={formStyles.container}>
+    <View style={styles.container}>
       <View>
         <TextInput
           style={[
-            formStyles.input,
+            styles.input,
             formik.touched.username &&
               formik.errors.username &&
-              formStyles.inputError,
+              styles.inputError,
           ]}
           onChangeText={formik.handleChange("username")}
           value={formik.values.username}
@@ -47,10 +49,10 @@ export const SignInForm = ({ onSubmit }) => {
       <View>
         <TextInput
           style={[
-            formStyles.input,
+            styles.input,
             formik.touched.password &&
               formik.errors.password &&
-              formStyles.inputError,
+              styles.inputError,
           ]}
           onChangeText={formik.handleChange("password")}
           value={formik.values.password}
@@ -68,7 +70,7 @@ export const SignInForm = ({ onSubmit }) => {
           color="appBarHeading"
           fontWeight="bold"
           fontSize="subheading"
-          style={formStyles.button}
+          style={styles.button}
         >
           Sign in
         </Text>

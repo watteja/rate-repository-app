@@ -13,7 +13,7 @@ const MyReviews = () => {
   return data ? (
     <FlatList
       data={data.me.reviews.edges}
-      renderItem={({ item }) => <ReviewItem review={item.node} />}
+      renderItem={({ item }) => <ReviewItem review={item.node} myReviews />}
       keyExtractor={({ node }) => node.id}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
     />

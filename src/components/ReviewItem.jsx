@@ -1,14 +1,17 @@
-import { View } from "react-native";
+import { View, Pressable, StyleSheet, Alert } from "react-native";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-native";
+import { useMutation, useQuery } from "@apollo/client";
 
 import Text from "./Text";
-import theme from "../theme";
+import { DELETE_REVIEW } from "../graphql/mutations";
+import { GET_CURRENT_USER } from "../graphql/queries";
+import theme, { formStyles } from "../theme";
 
-const reviewStyles = {
+const styles = StyleSheet.create({
   reviewContainer: {
     display: "flex",
     flexDirection: "row",
-    backgroundColor: theme.colors.listItemBackground,
     padding: 15,
   },
   reviewRating: {
@@ -26,28 +29,89 @@ const reviewStyles = {
     paddingLeft: 15,
     flexShrink: 1,
   },
-  reviewText: {
-    marginBottom: 10,
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    paddingBottom: 15,
   },
-};
+  repoButton: {
+    ...formStyles.button,
+    width: "45%",
+  },
+  deleteButton: {
+    ...formStyles.button,
+    backgroundColor: theme.colors.error,
+    width: "45%",
+  },
+});
 
-const ReviewItem = ({ review }) => {
+const ReviewItem = ({ review, myReviews }) => {
+  const navigate = useNavigate();
+  const [deleteReview] = useMutation(DELETE_REVIEW);
+  const { refetch } = useQuery(GET_CURRENT_USER, {
+    fetchPolicy: "cache-and-network",
+    variables: { includeReviews: true },
+  });
+
+  const confirmDelete = () => {
+    Alert.alert(
+      "Delete review",
+      "Are you sure you want to delete this review?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: async () => {
+            await deleteReview({
+              variables: { reviewId: review.id },
+            });
+            refetch();
+          },
+        },
+      ]
+    );
+  };
+
   return (
-    <View style={reviewStyles.reviewContainer}>
-      <View style={reviewStyles.reviewRating}>
-        <Text color="primary" fontWeight="bold" fontSize="subheading">
-          {review.rating}
-        </Text>
+    <View style={{ backgroundColor: theme.colors.listItemBackground }}>
+      <View style={styles.reviewContainer}>
+        <View style={styles.reviewRating}>
+          <Text color="primary" fontWeight="bold" fontSize="subheading">
+            {review.rating}
+          </Text>
+        </View>
+        <View style={styles.reviewTextContainer}>
+          <Text fontWeight="bold" fontSize={"subheading"}>
+            {review.user.username}
+          </Text>
+          <Text color="textSecondary">
+            {format(new Date(review.createdAt), "dd.MM.yyyy")}
+          </Text>
+          <Text>{review.text}</Text>
+        </View>
       </View>
-      <View style={reviewStyles.reviewTextContainer}>
-        <Text fontWeight="bold" fontSize={"subheading"}>
-          {review.user.username}
-        </Text>
-        <Text color="textSecondary" style={reviewStyles.reviewText}>
-          {format(new Date(review.createdAt), "dd.MM.yyyy")}
-        </Text>
-        <Text>{review.text}</Text>
-      </View>
+
+      {myReviews && (
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={styles.repoButton}
+            onPress={() => navigate(`/${review.repositoryId}`)}
+          >
+            <Text color="appBarHeading" fontWeight="bold" fontSize="subheading">
+              View repository
+            </Text>
+          </Pressable>
+          <Pressable style={styles.deleteButton} onPress={confirmDelete}>
+            <Text color="appBarHeading" fontWeight="bold" fontSize="subheading">
+              Delete review
+            </Text>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };

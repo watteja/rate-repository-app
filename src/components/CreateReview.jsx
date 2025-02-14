@@ -131,7 +131,7 @@ const CreateReview = () => {
       });
       navigate(`/${data.createReview.repositoryId}`);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
