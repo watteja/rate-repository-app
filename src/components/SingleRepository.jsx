@@ -15,7 +15,11 @@ const RepositoryInfo = ({ repository }) => {
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { repository } = useRepository(id);
+  const { repository, fetchMore } = useRepository(id, 4);
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   return repository ? (
     <FlatList
@@ -24,6 +28,8 @@ const SingleRepository = () => {
       keyExtractor={({ node }) => node.id}
       ListHeaderComponent={<RepositoryInfo repository={repository} />}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   ) : null;
 };
