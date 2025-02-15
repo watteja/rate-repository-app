@@ -1,11 +1,11 @@
 import { View, Pressable, StyleSheet, Alert } from "react-native";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-native";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
+import useCurrentUser from "../hooks/useCurrentUser";
 import Text from "./Text";
 import { DELETE_REVIEW } from "../graphql/mutations";
-import { GET_CURRENT_USER } from "../graphql/queries";
 import theme, { formStyles } from "../theme";
 
 const styles = StyleSheet.create({
@@ -49,10 +49,7 @@ const styles = StyleSheet.create({
 const ReviewItem = ({ review, myReviews }) => {
   const navigate = useNavigate();
   const [deleteReview] = useMutation(DELETE_REVIEW);
-  const { refetch } = useQuery(GET_CURRENT_USER, {
-    fetchPolicy: "cache-and-network",
-    variables: { includeReviews: true },
-  });
+  const { refetch } = useCurrentUser(true);
 
   const confirmDelete = () => {
     Alert.alert(

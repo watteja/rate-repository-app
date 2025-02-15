@@ -1,9 +1,8 @@
 import { FlatList, View } from "react-native";
 import { useParams } from "react-router-native";
-import { useQuery } from "@apollo/client";
 
 import RepositoryItem from "./RepositoryItem";
-import { GET_REPOSITORY } from "../graphql/queries";
+import useRepository from "../hooks/useRepository";
 import ReviewItem from "./ReviewItem";
 
 const RepositoryInfo = ({ repository }) => {
@@ -16,17 +15,14 @@ const RepositoryInfo = ({ repository }) => {
 
 const SingleRepository = () => {
   const { id } = useParams();
-  const { data } = useQuery(GET_REPOSITORY, {
-    variables: { repositoryId: id },
-    fetchPolicy: "cache-and-network",
-  });
+  const { repository } = useRepository(id);
 
-  return data ? (
+  return repository ? (
     <FlatList
-      data={data.repository.reviews.edges}
+      data={repository.reviews.edges}
       renderItem={({ item }) => <ReviewItem review={item.node} />}
       keyExtractor={({ node }) => node.id}
-      ListHeaderComponent={<RepositoryInfo repository={data.repository} />}
+      ListHeaderComponent={<RepositoryInfo repository={repository} />}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
     />
   ) : null;
