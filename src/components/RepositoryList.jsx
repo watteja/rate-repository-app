@@ -95,6 +95,8 @@ export class RepositoryListContainer extends React.Component {
         )}
         ListHeaderComponent={this.renderHeader}
         keyExtractor={(item) => item.id}
+        onEndReached={this.props.onEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }
@@ -104,7 +106,11 @@ const RepositoryList = () => {
   const [orderPrinciple, setOrderPrinciple] = useState(OrderPrinciple.latest);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [debouncedKeyword] = useDebounce(searchKeyword, 500);
-  const { repositories } = useRepositories(orderPrinciple, debouncedKeyword);
+  const { repositories, fetchMore } = useRepositories(
+    orderPrinciple,
+    debouncedKeyword,
+    8 // default 'first' value
+  );
   const navigate = useNavigate();
 
   const handleChangeParams = (newOrderPrinciple, newSearchKeyword) => {
@@ -112,10 +118,15 @@ const RepositoryList = () => {
     setSearchKeyword(newSearchKeyword);
   };
 
+  const onEndReach = () => {
+    fetchMore();
+  };
+
   // extracted "pure" component for easier testing, as advised by the materials
   return (
     <RepositoryListContainer
       repositories={repositories}
+      onEndReach={onEndReach}
       onChangeParams={handleChangeParams}
       navigate={navigate}
     />
